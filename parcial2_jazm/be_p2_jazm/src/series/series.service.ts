@@ -25,6 +25,7 @@ export class SeriesService {
       director: createSerieDto.director.trim(),
       temporadas: createSerieDto.temporadas,
       fechaEstreno: createSerieDto.fechaEstreno,
+      cantidadActores: createSerieDto.cantidadActores,
     });
   }
 
@@ -40,9 +41,9 @@ export class SeriesService {
     return serie;
   }
 
-  async update(id: number, updateSeriesDto: UpdateSerieDto): Promise<Serie> {
+  async update(id: number, updateSerieDto: UpdateSerieDto): Promise<Serie> {
     const serie = await this.findOne(id);
-    const serieUpdate = Object.assign(serie, updateSeriesDto);
+    const serieUpdate = Object.assign(serie, updateSerieDto);
     return this.seriesRepository.save(serieUpdate);
   }
 

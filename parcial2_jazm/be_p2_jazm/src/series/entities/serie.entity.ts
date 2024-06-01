@@ -26,6 +26,9 @@ export class Serie {
   @Column('date')
   fechaEstreno: Date;
 
+  @Column('int')
+  cantidadAutores: number;
+
   @CreateDateColumn({ name: 'fecha_creacion' })
   fechaCreacion: Date;
 

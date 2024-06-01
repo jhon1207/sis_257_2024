@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDateString, IsNotEmpty } from 'class-validator';
 import { IsDefined, IsNumber, IsString, MaxLength } from 'class-validator';
+
 export class CreateSerieDto {
   @ApiProperty()
   @IsNotEmpty({ message: 'El campo titulo es obligatorio' })
@@ -29,4 +30,9 @@ export class CreateSerieDto {
   @IsNotEmpty({ message: 'El campo fechaEstreno no debe ser vacío' })
   @IsDateString({}, { message: 'El campo fechaEstreno debe ser de tipo fecha' })
   readonly fechaEstreno: Date;
+
+  @ApiProperty()
+  @IsDefined({ message: 'El campo cantidad de actores debe estar definido' })
+  @IsNumber({}, { message: 'El campo cantidad de actores debe ser de tipo numérico' })
+  readonly cantidadActores: number;
 }

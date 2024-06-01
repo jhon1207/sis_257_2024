@@ -25,8 +25,8 @@ export class SeriesController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSeriesDto: UpdateSerieDto) {
-    return this.seriesService.update(+id, updateSeriesDto);
+  update(@Param('id') id: string, @Body() updateSerieDto: UpdateSerieDto) {
+    return this.seriesService.update(+id, updateSerieDto);
   }
 
   @Delete(':id')
