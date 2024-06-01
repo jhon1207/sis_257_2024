@@ -1,16 +1,16 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
-import { CreateSeriesDto } from './dto/create-series.dto';
-import { UpdateSeriesDto } from './dto/update-series.dto';
+import { CreateSerieDto } from './dto/create-serie.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Serie } from './entities/serie.entity';
+import { UpdateSerieDto } from './dto/update-serie.dto';
 
 @Injectable()
 export class SeriesService {
-  constructor(@InjectRepository(Serie) private SeriesRepository: Repository<Serie>) {}
+  constructor(@InjectRepository(Serie) private seriesRepository: Repository<Serie>) {}
 
-  async create(createSerieDto: CreateSeriesDto): Promise<Serie> {
-    const existe = await this.SeriesRepository.findOneBy({
+  async create(createSerieDto: CreateSerieDto): Promise<Serie> {
+    const existe = await this.seriesRepository.findOneBy({
       titulo: createSerieDto.titulo.trim(),
       director: createSerieDto.director.trim(),
     });
@@ -19,7 +19,7 @@ export class SeriesService {
       throw new ConflictException('La serie ya existe');
     }
 
-    return this.SeriesRepository.save({
+    return this.seriesRepository.save({
       titulo: createSerieDto.titulo.trim(),
       sinopsis: createSerieDto.sinopsis.trim(),
       director: createSerieDto.director.trim(),
@@ -29,25 +29,25 @@ export class SeriesService {
   }
 
   async findAll(): Promise<Serie[]> {
-    return this.SeriesRepository.find();
+    return this.seriesRepository.find();
   }
 
   async findOne(id: number): Promise<Serie> {
-    const serie = await this.SeriesRepository.findOneBy({ id });
+    const serie = await this.seriesRepository.findOneBy({ id });
     if (!serie) {
       throw new NotFoundException(`La serie ${id} no existe`);
     }
     return serie;
   }
 
-  async update(id: number, updateSerieDto: UpdateSeriesDto): Promise<Serie> {
+  async update(id: number, updateSeriesDto: UpdateSerieDto): Promise<Serie> {
     const serie = await this.findOne(id);
-    const serieUpdate = Object.assign(serie, updateSerieDto);
-    return this.SeriesRepository.save(serieUpdate);
+    const serieUpdate = Object.assign(serie, updateSeriesDto);
+    return this.seriesRepository.save(serieUpdate);
   }
 
   async remove(id: number) {
     const serie = await this.findOne(id);
-    return this.SeriesRepository.delete(serie.id);
+    return this.seriesRepository.delete(serie.id);
   }
 }

@@ -1,4 +1,10 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity('series')
 export class Serie {
@@ -19,4 +25,10 @@ export class Serie {
 
   @Column('date')
   fechaEstreno: Date;
+
+  @CreateDateColumn({ name: 'fecha_creacion' })
+  fechaCreacion: Date;
+
+  @UpdateDateColumn({ name: 'fecha_modificacion' })
+  fechaModificacion: Date;
 }
